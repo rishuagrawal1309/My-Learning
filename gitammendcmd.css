@@ -1,0 +1,198 @@
+/* gitammendcmd.css
+    Styles for a small "git --amend" command block / terminal UI.
+    Suitable for embedding a code sample or interactive command snippet.
+*/
+
+/*hello*/
+/* Design tokens */
+:root{
+  --bg: #0f1724;
+  --panel: #0b1220;
+  --muted: #94a3b8;
+  --accent: #7dd3fc;
+  --accent-2: #60a5fa;
+  --success: #86efac;
+  --danger: #fb7185;
+  --glass: rgba(255,255,255,0.03);
+  --radius: 10px;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+  --ui-font-size: 14px;
+  --transition: 180ms cubic-bezier(.2,.9,.2,1);
+}
+
+/* Light mode fallback */
+@media (prefers-color-scheme: light){
+  :root{
+     --bg: #f8fafc;
+     --panel: #ffffff;
+     --muted: #64748b;
+     --accent: #0369a1;
+     --accent-2: #1e40af;
+     --success: #16a34a;
+     --danger: #dc2626;
+     --glass: rgba(0,0,0,0.04);
+  }
+}
+
+/* Container for the "git amend" widget */
+.git-amend {
+  font-family: var(--mono);
+  font-size: var(--ui-font-size);
+  color: var(--accent);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent), var(--panel);
+  border-radius: var(--radius);
+  padding: 14px;
+  max-width: 720px;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
+  margin: 12px auto;
+  display: block;
+}
+
+/* Header row with small badges */
+.git-amend__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.git-amend__title {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+/* Small status badge */
+.badge {
+  background: var(--glass);
+  color: var(--muted);
+  padding: 6px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(255,255,255,0.02);
+}
+
+/* Terminal area */
+.git-amend__terminal {
+  background: linear-gradient(180deg, rgba(0,0,0,0.12), transparent);
+  border-radius: calc(var(--radius) - 4px);
+  padding: 12px;
+  color: #e6eef6;
+  line-height: 1.6;
+  overflow: auto;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* Prompt line */
+.cmd-line {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  white-space: pre-wrap;
+}
+
+.prompt {
+  color: var(--muted);
+  min-width: 70px;
+  font-weight: 600;
+}
+
+/* Command text highlight */
+.cmd {
+  color: #f8fafc;
+  background: rgba(255,255,255,0.02);
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.02);
+}
+
+/* Flags */
+.flag {
+  color: var(--accent);
+  background: rgba(125,211,252,0.06);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-weight: 700;
+  font-size: 12px;
+  border: 1px solid rgba(125,211,252,0.08);
+}
+
+/* Commit message preview */
+.commit {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  border: 1px dashed rgba(255,255,255,0.02);
+}
+
+/* Success / info output */
+.output {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.output .icon {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex: 0 0 10px;
+}
+
+.output--success .icon { background: var(--success); box-shadow: 0 0 8px rgba(134,239,172,0.12); }
+.output--info .icon { background: var(--accent-2); box-shadow: 0 0 8px rgba(96,165,250,0.08); }
+.output--error .icon { background: var(--danger); box-shadow: 0 0 8px rgba(251,113,133,0.08); }
+
+/* Copy-to-clipboard button */
+.copy-btn {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.04);
+  color: var(--muted);
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.copy-btn:hover {
+  transform: translateY(-2px);
+  color: var(--accent-2);
+  border-color: rgba(255,255,255,0.06);
+}
+
+/* Small responsive adjustments */
+@media (max-width: 480px){
+  .git-amend{
+     padding: 10px;
+     border-radius: 8px;
+  }
+  .prompt { min-width: 56px; font-size: 13px; }
+  .cmd { font-size: 13px; padding: 6px 8px; }
+}
+
+/* Tiny utility classes */
+.kv {
+  color: var(--muted);
+  font-size: 12px;
+}
+.highlight {
+  color: var(--accent);
+  font-weight: 700;
+}
